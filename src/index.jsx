@@ -11,7 +11,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <RecoilRoot>
-        <div className=" bg-gradient-to-b from-zinc-300  to-slate-200 h-screen">
+        <div className=" bg-slate-900  h-screen">
           <App />
         </div>
       </RecoilRoot>

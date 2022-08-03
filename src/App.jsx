@@ -21,12 +21,12 @@ const App=()=>{
         todolist.map(todoItem=>{
           console.log(todoItem.id)
           return(
-          <TodoItem key={todoItem.id} item={todoItem.text} isComplete={todoItem.isComplete}/>
+          <TodoItem key={todoItem.id} item={todoItem}/>
         )})
 
       }
       
-      <footer className="text-xs text-slate-900">
+      <footer className="text-xs text-indigo-500">
         Developed by a Developer:{")"}
       </footer>{/*Any problem with brackets*/}
     </div>

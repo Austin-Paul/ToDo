@@ -1,13 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./index.css";
+import App from "./App.jsx";
+import reportWebVitals from "./reportWebVitals";
+import { RecoilRoot } from "recoil";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <RecoilRoot>
+        <div className=" bg-gradient-to-b from-zinc-300  to-slate-200 h-screen">
+          <App />
+        </div>
+      </RecoilRoot>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

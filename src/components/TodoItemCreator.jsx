@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { RecoilState, useSetRecoilState } from "recoil";
-import { todoListState } from "./todoListState";
+import { todoListState } from "../atom/todoListState";
 
 
 const TodoItemCreator = () => {
@@ -12,7 +12,8 @@ const TodoItemCreator = () => {
    
   const addItem=()=>{
     console.log("working");
-    setTodoList((oldTodoList)=>[
+    setTodoList((oldTodoList)=>{
+      const newItems=[
       
       {
         id:getId(),
@@ -20,7 +21,11 @@ const TodoItemCreator = () => {
         isComplete:false,
       },
       ...oldTodoList
-    ])
+    ]
+    window.localStorage.setItem("user-basket", JSON.stringify(newItems));
+   
+    return newItems;
+  })
     setInputValue("");
   }
 
@@ -33,7 +38,7 @@ const TodoItemCreator = () => {
   return (
     <main>
       <div>
-        <input className="m-10 bg-neutral-200 text-xl cursor-auto" type="text" value={inputValue} onChange={onChange} onKeyPress={(e)=>{
+        <input className="m-10 bg-neutral-200 text-xl cursor-auto" placeholder="Task" type="text" value={inputValue} onChange={onChange} onKeyPress={(e)=>{
           if(e.key==="Enter"){
             if(inputValue!=="")
             addItem();
@@ -45,7 +50,7 @@ const TodoItemCreator = () => {
 };
 let id=1;
 const getId=()=>{
- 
+ //ID becomes repeated after a refresh..starts from 1 so duplicate id is possible
  return id++;
 }
 export default TodoItemCreator;

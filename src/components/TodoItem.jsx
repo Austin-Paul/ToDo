@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { todoListState } from "./todoListState";
+import { todoListState } from "../atom/todoListState";
 
 
 
@@ -23,17 +23,18 @@ const TodoItem=({item})=>{//destructuring
            ...item,
             text: event.target.value,       
           });
-          
+          window.localStorage.setItem("user-basket", JSON.stringify(newList));
           setTodoList(newList);
     }
 
     const deleteItem=()=>{
         const newList=removeItemAtIndex(todolist,index);
+        window.localStorage.setItem("user-basket", JSON.stringify(newList));
         setTodoList(newList);
     }
 
     return(
-        <div className="bg-cyan-600 max-w-sm text-left translate-x-96 w-fit ">
+        <div className="bg-cyan-600  rounded-md shadow-md">
             <input 
             type="checkbox"
              checked={complete}

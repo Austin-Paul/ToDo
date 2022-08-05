@@ -10,11 +10,21 @@ const TodoItem=({item})=>{//destructuring
     const [todolist,setTodoList]=useRecoilState(todoListState)
     const [complete,setComplete]=useState(item.isComplete)//might have to use recoil or something to convey the change to local storage or to parent or something
     const index=todolist.findIndex((listItem) => listItem === item);
+
     const onChange=(event)=>{
        setComplete(!complete);
-    //    if(complete)//executed before value of complete gets updated
-    //     document.getElementById("task").className="line-through"
-    //     event.target.className="rounded-full w-8 h-8 bg-white border-2"
+
+       const newList = replaceItemAtIndex(todolist, index, {
+        ...item,
+         isComplete:!complete,       
+       });
+       window.localStorage.setItem("user-basket", JSON.stringify(newList));
+       setTodoList(newList);
+       if(!complete)//executed before value of complete gets updated
+         document.getElementById(`${item.id}`).className="bg-red-500 py-2 my-1"
+        else
+         document.getElementById(`${item.id}`).className="bg-cyan-600 text-white py-2 my-1"
+        //  event.target.className="rounded-full w-8 h-8 bg-white border-2"
     }
 
     const editItem=(event)=>{
@@ -34,7 +44,7 @@ const TodoItem=({item})=>{//destructuring
     }
 
     return(
-        <div className="bg-cyan-600  rounded-md shadow-md">
+        <div className="bg-cyan-600  rounded-md shadow-md sm:m-auto m-4  ">
             <input 
             type="checkbox"
              checked={complete}
@@ -42,7 +52,7 @@ const TodoItem=({item})=>{//destructuring
                className="rounded-full w-8 h-8 bg-cyan-600 border-1 shadow-sm"/>{/* should I add div and change it to circle*/ }
             
             <input 
-            id="task" 
+            id={`${item.id}` }
             type="text" 
             value={item.text} 
             onChange={editItem} 
